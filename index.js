@@ -20,15 +20,6 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const cors = require("cors");
 
-const dirname=path.resolve()
-
-
-app.use(express.static(path.join(dirname, "/client/build")))
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(dirname, "client", "build", "index.html"))
-})
-
 
 dbConnect();
 app.use(morgan("dev"));
