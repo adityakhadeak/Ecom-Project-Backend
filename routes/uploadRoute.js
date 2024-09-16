@@ -4,15 +4,14 @@ const { isAdmin, authMiddleware } = require("../middlewares/authMiddleware");
 const { uploadPhoto, productImgResize } = require("../middlewares/uploadImage");
 const router = express.Router();
 
+// Update product image upload route to directly handle Cloudinary uploads
 router.post(
   "/",
   authMiddleware,
   isAdmin,
-  uploadPhoto.array("images", 10),
-  productImgResize,
-  uploadImages
+  uploadImages // Updated to handle direct Cloudinary upload
 );
 
-router.delete("/delete-img/:id", authMiddleware, isAdmin, deleteImages);
+router.delete("/delete-image/:id", authMiddleware, isAdmin, deleteImages);
 
 module.exports = router;

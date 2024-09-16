@@ -1,40 +1,38 @@
-const cloudinary = require("cloudinary");
+const cloudinary = require("cloudinary").v2;
 
+// Configure Cloudinary
 cloudinary.config({
-  cloud_name: process.env.ClOUDINARY_CLIENT_NAME,
-  api_key: process.env.ClOUDINARY_CLIENT_API,
-  api_secret: process.env.ClOUDINARY_CLIENT_SECRET,
+  cloud_name: process.env.CLOUDINARY_CLIENT_NAME,
+  api_key: process.env.CLOUDINARY_CLIENT_API,
+  api_secret: process.env.CLOUDINARY_CLIENT_SECRET,
 });
 
-const cloudinaryUploadImg = async (fileToUploads) => {
-  return new Promise((resolve) => {
-    cloudinary.uploader.upload(fileToUploads, (result) => {
-      resolve(
-        {
+// Function to upload image to Cloudinary
+const cloudinaryUploadImg = async (base64Image) => {
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader.upload(base64Image, { resource_type: "image" }, (error, result) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve({
           url: result.secure_url,
           asset_id: result.asset_id,
           public_id: result.public_id,
-        },
-        {
-          resource_type: "auto",
-        }
-      );
+        });
+      }
     });
   });
 };
+
+// Function to delete image from Cloudinary
 const cloudinaryDeleteImg = async (fileToDelete) => {
-  return new Promise((resolve) => {
-    cloudinary.uploader.destroy(fileToDelete, (result) => {
-      resolve(
-        {
-          url: result.secure_url,
-          asset_id: result.asset_id,
-          public_id: result.public_id,
-        },
-        {
-          resource_type: "auto",
-        }
-      );
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader.destroy(fileToDelete, (error, result) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result);
+      }
     });
   });
 };

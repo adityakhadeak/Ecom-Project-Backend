@@ -19,6 +19,7 @@ const uploadRouter = require("./routes/uploadRoute");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const cors = require("cors");
+const fileUpload = require("express-fileupload");
 
 
 dbConnect();
@@ -31,6 +32,10 @@ app.use(cookieParser());
 app.get('/', (req, res) => {
   res.send('Ecom Api Working');
 });
+
+app.use(fileUpload({
+  useTempFiles:false
+}))
 
 app.use("/api/user", authRouter);
 app.use("/api/product", productRouter);
