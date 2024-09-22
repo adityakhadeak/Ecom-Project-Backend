@@ -48,6 +48,7 @@ var productSchema = new mongoose.Schema(
     tags: String,
     ratings: [
       {
+        username:String,
         star: Number,
         comment: String,
         postedby: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
