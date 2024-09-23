@@ -8,6 +8,9 @@ var orderSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    ordertype:{
+      type:String
+    },
     shippingInfo: {
       firstname: {
         type: String,

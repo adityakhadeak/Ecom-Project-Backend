@@ -431,8 +431,10 @@ const createOrder = asyncHandler(async (req, res) => {
     totalPrice,
     totalPriceAfterDiscount,
     paymentInfo,
+    ordertype
   } = req.body;
   const { _id } = req.user;
+  console.log(paymentInfo,"paymentInfo")
   try {
     const order = await Order.create({
       shippingInfo,
@@ -440,6 +442,7 @@ const createOrder = asyncHandler(async (req, res) => {
       totalPrice,
       totalPriceAfterDiscount,
       paymentInfo,
+      ordertype,
       user: _id,
     });
     res.json({
